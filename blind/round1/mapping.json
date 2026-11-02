@@ -1,0 +1,14 @@
+﻿{
+    "table":  {
+                  "A":  "bar",
+                  "B":  "ours"
+              },
+    "result":  {
+                   "A":  "bar",
+                   "B":  "ours"
+               },
+    "cards":  {
+                  "A":  "bar",
+                  "B":  "ours"
+              }
+}

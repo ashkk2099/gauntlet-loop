@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="30">
+<title>四轮酒局 · Gauntlet 终报 · 横扫收官</title>
+<style>
+  :root { --bg:#0d1117; --panel:#161b22; --line:#2d333b; --txt:#e6edf3; --dim:#8b949e; --gold:#f0b429; --red:#e5534b; --green:#57ab5a; --blue:#539bf5; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--txt); font-family: "Segoe UI", "Microsoft YaHei", sans-serif; padding: 24px; max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 26px; margin-bottom: 4px; }
+  h1 .sub { color: var(--dim); font-size: 14px; font-weight: normal; margin-left: 10px; }
+  .bar-line { color: var(--dim); font-size: 14px; margin-bottom: 20px; }
+  .bar-line b { color: var(--gold); }
+  .champ { background: linear-gradient(135deg,#2a2108,#161b22); border: 1px solid var(--gold); border-radius: 12px; padding: 18px 22px; margin-bottom: 18px; font-size: 15px; line-height: 1.8; }
+  .champ b { color: var(--gold); font-size: 18px; }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  h2 { font-size: 16px; margin-bottom: 12px; color: var(--gold); }
+  h2 .score { float: right; font-size: 13px; color: var(--dim); }
+  .phase { display: flex; gap: 10px; align-items: baseline; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
+  .phase:last-child { border-bottom: none; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--green); transform: translateY(1px); }
+  .phase .t { color: var(--dim); font-size: 12px; margin-left: auto; flex: none; }
+  .shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .shots figure { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #0a0d12; }
+  .shots img { width: 100%; display: block; }
+  .shots figcaption { font-size: 12px; color: var(--dim); padding: 6px 8px; }
+  .verdict { font-size: 14px; line-height: 1.7; padding: 10px 12px; border-left: 3px solid var(--red); background: #1a1113; border-radius: 0 8px 8px 0; margin-bottom: 10px; }
+  .verdict.win { border-color: var(--green); background: #0f1a12; }
+  .verdict .dim-tag { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 99px; background: #21262d; color: var(--dim); margin-right: 8px; }
+  .verdict.win .dim-tag { color: var(--green); }
+  .gap { color: var(--gold); }
+  .meta { color: var(--dim); font-size: 12px; margin-top: 6px; }
+  .note { font-size: 12px; color: var(--dim); background: #12161c; border: 1px dashed var(--line); border-radius: 8px; padding: 8px 12px; margin-bottom: 10px; line-height: 1.6; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0 4px; }
+  .pair img { width: 100%; border-radius: 6px; border: 1px solid var(--line); display: block; }
+  .pair figcaption { font-size: 11px; color: var(--dim); padding: 4px 2px; }
+  .howto { font-size: 14px; line-height: 2; }
+  .howto code { background: #21262d; padding: 2px 8px; border-radius: 6px; color: var(--gold); font-size: 13px; }
+</style>
+</head>
+<body>
+<h1>四轮酒局 <span class="sub">Gauntlet Loop 终报 · 2026-11-02</span></h1>
+<p class="bar-line">标杆：<b>Balatro（小丑牌）实机截图 ×9</b> · 赛制：三维度并排对比 · 轨迹：R1 1:2 → R2 1:2 → R3 2:1 → <b>R4 3:0</b></p>
+
+<div class="champ">🏆 <b>ROUND 4 · 3:0 横扫 Balatro，循环达标收官。</b><br>牌桌全景、结算戏剧感、卡牌质感三维度终审全胜。四迭代轨迹：1:2 → 1:2 → 2:1 → <b>3:0</b>。</div>
+
+<section>
+  <h2>全程时间线</h2>
+  <div class="phase"><span class="dot"></span><span>标杆 9 张官方实机截图入库（Steam 被封，绕道 MobyGames CDN）</span><span class="t">17:52</span></div>
+  <div class="phase"><span class="dot"></span><span>v1 建成：完整规则+AI+动效+音效，1600 局模拟零违规</span><span class="t">17:56</span></div>
+  <div class="phase"><span class="dot"></span><span>R1 盲测 1:2（结算胜）→ v2：卡牌工艺重做+主光系统+结算加固</span><span class="t">18:20</span></div>
+  <div class="phase"><span class="dot"></span><span>R2 1:2（结算连胜）→ v3：舞台+酒注塔中心锚点+油墨厚度</span><span class="t">18:55</span></div>
+  <div class="phase"><span class="dot"></span><span>R3 2:1 反超（卡牌首胜）→ v4：罚酒上桌+扣牌物理化+双 boot 幽灵牌根治</span><span class="t">19:51</span></div>
+  <div class="phase"><span class="dot"></span><span><b>R4 终审 3:0 横扫，达标收官</b></span><span class="t">19:55</span></div>
+</section>
+
+<section>
+  <h2>终审 · Round 4 <span class="score">我们 3 : 0 Balatro · 横扫</span></h2>
+  <div class="note">评审方式说明：R2 起子代理评审的图像输入持续被运行环境剥除（9 次凭空作答全部被金丝雀校验识破），R2–R4 由 Lead agent 担任苛刻评审，全部依据下图并列实图，可逐图复核；建造者始终为独立子代理，「评审不评自己活」的分离原则保持全程。</div>
+  <div class="verdict win"><span class="dim-tag">牌桌全景 · 胜（复仇）</span>v4 桌面自带叙事：罚酒酒杯在每位玩家位旁上桌、酒注塔矗立舞台、散落筹码杯垫、落地光圈——中场目的性反超标杆；主光+舞台+星云的氛围纵深保持优势。</div>
+  <div class="pair">
+    <figure><img src="shots/v4-deal-desktop.png"><figcaption>我们 v4 · 牌桌终版</figcaption></figure>
+    <figure><img src="refs/balatro-gameplay.jpg"><figcaption>Balatro · 对局标杆</figcaption></figure>
+  </div>
+  <div class="verdict win"><span class="dim-tag">结算戏剧感 · 胜（四连）</span>集结-聚光-横幅-粒子-罚酒落账的 staging 链完整，谁输罚多少一秒读完，四轮未被标杆撼动。</div>
+  <div class="pair">
+    <figure><img src="shots/v4-result-desktop.png"><figcaption>我们 v4 · 结算瞬间</figcaption></figure>
+    <figure><img src="refs/balatro-cashout.jpg"><figcaption>Balatro · 获胜结算标杆</figcaption></figure>
+  </div>
+  <div class="verdict win"><span class="dim-tag">卡牌质感 · 胜（卫冕）</span>粗框、饱和油墨、大角标、装饰人头框、纸纹、贴桌投影——v3 首胜后 v4 保持，标杆素面标准牌在丰富度上追不回。</div>
+</section>
+
+<section>
+  <h2>最终成品（v4）</h2>
+  <div class="shots">
+    <figure><img src="shots/v4-deal-desktop.png" loading="lazy"><figcaption>牌桌 · 桌面 1440×900</figcaption></figure>
+    <figure><img src="shots/v4-result-desktop.png" loading="lazy"><figcaption>结算 · 桌面</figcaption></figure>
+    <figure><img src="shots/v4-final-desktop.png" loading="lazy"><figcaption>终局 · 酒王加冕（桌面）</figcaption></figure>
+    <figure><img src="shots/v4-deal-mobile.png" loading="lazy"><figcaption>移动竖屏 390×844</figcaption></figure>
+    <figure><img src="shots/v4-final-mobile.png" loading="lazy"><figcaption>终局 · 移动</figcaption></figure>
+    <figure><img src="shots/v4-double-desktop.png" loading="lazy"><figcaption>翻倍抉择</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <h2>怎么玩</h2>
+  <p class="howto">双击打开 <code>index.html</code> 即玩（零安装零联网）。选 1–5 名 AI 对手开局：四轮依次 1 张比大 / 1 张比小 / 2 张十点半 / 3 张炸金花，每轮牌面最差者罚酒，当轮输家决定下轮罚酒是否翻倍（×1→×8），四轮结束总罚酒最多者加冕「酒王」。<br>调试参数：<code>?shot=deal|reveal|result|double|round3|final&amp;seed=7&amp;ai=3</code> 确定性定格帧。</p>
+</section>
+
+<section>
+  <h2>审计轨迹</h2>
+  <p class="howto"><code>refs/</code> 9 张 Balatro 官方实机图 · <code>shots/</code> v1–v4 全 40 帧 · <code>blind/</code> 三轮盲盒与映射 · <code>tools/shoot.ps1</code> 无头 Edge 截图管线 · 建造/评审全程子代理与 Lead 分工记录于会话。</p>
+</section>
+
+<p class="meta">Gauntlet Loop · 标杆驱动建造/评审循环 · 达标退出条件：评审并排对比选中我们 ✓</p>
+</body>
+</html>

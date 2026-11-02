@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  html, body { margin: 0; padding: 0; background: #000; height: 100%; overflow: hidden; }
+  img { width: 100vw; height: 100vh; object-fit: contain; display: block; }
+</style>
+</head>
+<body>
+<img id="im" alt="">
+<script>
+  var u = new URLSearchParams(location.search).get('u');
+  document.getElementById('im').src = u;
+</script>
+</body>
+</html>

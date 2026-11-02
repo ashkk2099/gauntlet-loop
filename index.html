@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#06110c">
+<title>四轮酒局 · 酒王争霸</title>
+<link rel="stylesheet" href="game.css">
+</head>
+<body>
+
+  <!-- 顶栏：轮次 / 玩家计分 / 罚酒基数 / 静音 -->
+  <header id="topbar">
+    <div id="round-badge" class="badge"><span id="round-dots"><i></i><i></i><i></i><i></i></span>第<span id="round-num">-</span>轮·<span id="round-name">酒局</span><span class="badge-sep"></span>酒注×<span id="base-num">1</span></div>
+    <div id="chips"></div>
+    <button id="mute-btn" aria-label="静音开关">🔊</button>
+  </header>
+
+  <!-- 牌桌 -->
+  <main id="table-wrap">
+    <div id="table">
+      <div class="felt-ring"></div>
+      <div class="felt-ring-glow"></div>
+      <div id="stage"></div>
+      <div id="bet-visual"><div class="bet-tower"></div><div class="bet-label" id="bet-label">酒注 ×1</div></div>
+      <div class="table-props"><i class="prop-chip pc1"></i><i class="prop-chip pc2"></i><i class="prop-coaster pc3"></i></div>
+      <div id="deck-visual"><i></i><i></i><i></i></div>
+      <div id="discard-visual"></div>
+      <div id="panels"></div>
+      <div id="human-slot" class="slot-anchor"></div>
+      <div id="human-tray" class="beer-tray"></div>
+    </div>
+  </main>
+
+  <!-- 操作栏 -->
+  <div id="actionbar">
+    <div id="hint">欢迎来到四轮酒局</div>
+    <button id="confirm-btn" disabled>确认出牌</button>
+  </div>
+
+  <!-- 手牌锚点区域（卡牌实体在 #cardlayer） -->
+  <div id="hand"></div>
+
+  <!-- 居中横幅（轮次切换 / 结果） -->
+  <div id="banner" class="hidden">
+    <div id="b-title"></div>
+    <div id="b-sub"></div>
+  </div>
+
+  <!-- 屏幕边缘闪光（结果瞬间） -->
+  <div id="edge-flash"></div>
+
+  <!-- 卡牌与动态元素层 -->
+  <div id="cardlayer"></div>
+
+  <!-- 粒子画布 -->
+  <canvas id="fx"></canvas>
+
+  <!-- 主菜单 -->
+  <div id="menu" class="overlay">
+    <div class="menu-box">
+      <div class="menu-logo">四轮酒局</div>
+      <div class="menu-sub">酒王争霸 · 四轮定乾坤</div>
+      <div class="menu-rule-label">选择 AI 对手人数</div>
+      <div id="cnt-pills">
+        <button class="cnt-pill" data-n="1">1</button>
+        <button class="cnt-pill on" data-n="2">2</button>
+        <button class="cnt-pill" data-n="3">3</button>
+        <button class="cnt-pill" data-n="4">4</button>
+        <button class="cnt-pill" data-n="5">5</button>
+      </div>
+      <div id="menu-count">共 3 人酒局</div>
+      <button id="start-btn">🍻 开 局</button>
+      <details id="rules">
+        <summary>玩法规则</summary>
+        <p>一副 52 张，每人 7 张，连打四轮：</p>
+        <p>① <b>比大</b>：出 1 张，最大者赢，最小者罚酒。<br>
+           ② <b>比小</b>：出 1 张，最小者赢，最大者罚酒。<br>
+           ③ <b>十点半</b>：出 2 张凑 10.5（A=1，J/Q/K=半张），最近者赢，最远者罚酒。<br>
+           ④ <b>炸金花</b>：剩余 3 张自动锁定，豹子＞同花顺＞金花＞顺子＞对子＞散牌，牌型最弱者罚酒。</p>
+        <p>牌点 A 最大、2 最小；同点比花色 ♠＞♥＞♣＞♦。每轮输家可抉择下一轮罚酒<b>是否翻倍</b>（1→2→4→8）。四轮之后，罚酒最多者加冕「酒王」！</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- 翻倍抉择（人类输家） -->
+  <div id="double-modal" class="overlay hidden">
+    <div class="dm-box">
+      <div class="dm-title">🍺 你这轮输了！</div>
+      <div class="dm-info" id="dm-info">当前罚酒基数 1 杯</div>
+      <button id="btn-double" class="dm-btn hot">
+        <span class="dm-b-main">🔥 翻倍！</span>
+        <span class="dm-b-sub" id="dm-double-sub">下轮罚酒 → 2 杯</span>
+      </button>
+      <button id="btn-safe" class="dm-btn calm">
+        <span class="dm-b-main">🛡️ 稳一手</span>
+        <span class="dm-b-sub" id="dm-safe-sub">保持 1 杯</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 终局结算 -->
+  <div id="final-modal" class="overlay hidden">
+    <div class="fm-box">
+      <div class="fm-title">🏆 终局结算</div>
+      <div class="fm-sub" id="fm-sub">酒王加冕</div>
+      <div id="final-rows"></div>
+      <button id="btn-again">🍻 再来一局</button>
+    </div>
+  </div>
+
+<script src="game.js"></script>
+</body>
+</html>

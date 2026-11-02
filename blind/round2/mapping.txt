@@ -1,0 +1,3 @@
+﻿table: A=ours(shots\v2-deal-desktop.png) B=bar(refs\balatro-gameplay.jpg)
+result: A=bar(refs\balatro-cashout.jpg) B=ours(shots\v2-result-desktop.png)
+cards: A=bar(refs\balatro-hand-crop.jpg) B=ours(shots\v2-hand-crop.jpg)

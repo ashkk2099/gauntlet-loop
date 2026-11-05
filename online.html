@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#06110c">
+<title>纸牌屋 · 联机酒局</title>
+<link rel="stylesheet" href="game.css">
+<link rel="stylesheet" href="online.css">
+</head>
+<body>
+
+  <!-- ============ 大厅 ============ -->
+  <div id="view-lobby" class="view">
+    <div class="l-box">
+      <div class="menu-logo">纸牌屋</div>
+      <div class="menu-sub">联机酒局 · 四轮定乾坤</div>
+      <div class="l-label">你的昵称</div>
+      <input id="inp-name" class="inp" maxlength="12" placeholder="输入昵称" autocomplete="off">
+      <button id="btn-create" class="btn-gold">🏠 创建房间</button>
+      <div class="l-div"><span>或加入好友的酒局</span></div>
+      <div class="l-joinrow">
+        <input id="inp-code" class="inp" maxlength="4" placeholder="房间码" autocomplete="off">
+        <button id="btn-join" class="btn-ghost">加入</button>
+      </div>
+      <div id="lobby-err" class="l-err"></div>
+      <details id="rules">
+        <summary>玩法规则</summary>
+        <p>一副 52 张，每人 7 张，连打四轮：</p>
+        <p>① <b>比大</b>：出 1 张，最大者赢，最小者罚酒。<br>
+           ② <b>比小</b>：出 1 张，最小者赢，最大者罚酒。<br>
+           ③ <b>十点半</b>：出 2 张凑 10.5（A=1，J/Q/K=半张），最近者赢，最远者罚酒。<br>
+           ④ <b>炸金花</b>：剩余 3 张自动锁定，豹子＞同花顺＞金花＞顺子＞对子＞散牌，牌型最弱者罚酒。</p>
+        <p>牌点 A 最大、2 最小；同点比花色 ♠＞♥＞♣＞♦。每轮输家可抉择下一轮罚酒<b>是否翻倍</b>（1→2→4→8）。四轮之后，罚酒最多者加冕「酒王」！</p>
+      </details>
+      <div class="l-foot" id="ws-addr"></div>
+    </div>
+  </div>
+
+  <!-- ============ 房间 ============ -->
+  <div id="view-room" class="view hidden">
+    <div class="r-box">
+      <div class="r-title">房间号 · 分享给朋友加入</div>
+      <div class="r-code" id="room-code">----</div>
+      <div class="r-share">
+        <input id="share-link" class="inp" readonly>
+        <button id="btn-copy" class="btn-ghost">复制</button>
+      </div>
+      <div class="r-plabel">玩家（<span id="room-count">0</span>/6）</div>
+      <div id="room-players"></div>
+      <div id="host-controls" class="hidden">
+        <button id="btn-addai" class="btn-ghost">＋ 加个 AI</button>
+        <button id="btn-rmai" class="btn-ghost">－ 减个 AI</button>
+      </div>
+      <button id="btn-start" class="btn-gold hidden">🍻 开 局</button>
+      <div id="wait-host" class="r-wait">等待房主开局…</div>
+      <button id="btn-leave-room" class="btn-link">离开房间</button>
+    </div>
+  </div>
+
+  <!-- ============ 牌桌 ============ -->
+  <div id="view-table" class="hidden">
+    <!-- 顶栏：轮次 / 玩家计分 / 罚酒基数 / 离开 / 静音 -->
+    <header id="topbar">
+      <div id="round-badge" class="badge"><span id="round-dots"><i></i><i></i><i></i><i></i></span>第<span id="round-num">-</span>轮·<span id="round-name">酒局</span><span class="badge-sep"></span>酒注×<span id="base-num">1</span></div>
+      <div id="chips"></div>
+      <button id="leave-btn" aria-label="离开房间">🚪</button>
+      <button id="mute-btn" aria-label="静音开关">🔊</button>
+    </header>
+
+    <!-- 牌桌 -->
+    <main id="table-wrap">
+      <div id="table">
+        <div class="felt-ring"></div>
+        <div class="felt-ring-glow"></div>
+        <div id="stage"></div>
+        <div id="bet-visual"><div class="bet-tower"></div><div class="bet-label" id="bet-label">酒注 ×1</div></div>
+        <div class="table-props"><i class="prop-chip pc1"></i><i class="prop-chip pc2"></i><i class="prop-coaster pc3"></i></div>
+        <div id="deck-visual"><i></i><i></i><i></i></div>
+        <div id="discard-visual"></div>
+        <div id="panels"></div>
+        <div id="human-slot" class="slot-anchor"></div>
+        <div id="human-tray" class="beer-tray"></div>
+      </div>
+    </main>
+
+    <!-- 操作栏 -->
+    <div id="actionbar">
+      <div id="hint">连接中……</div>
+      <button id="confirm-btn" disabled>确认出牌</button>
+    </div>
+    <!-- 手牌锚点区域（卡牌实体在 #cardlayer） -->
+    <div id="hand"></div>
+
+    <!-- 居中横幅（轮次切换 / 结果） -->
+    <div id="banner" class="hidden">
+      <div id="b-title"></div>
+      <div id="b-sub"></div>
+    </div>
+
+    <!-- 屏幕边缘闪光（结果瞬间） -->
+    <div id="edge-flash"></div>
+
+    <!-- 卡牌与动态元素层 -->
+    <div id="cardlayer"></div>
+
+    <!-- 粒子画布 -->
+    <canvas id="fx"></canvas>
+
+    <!-- 翻倍抉择（我是输家） -->
+    <div id="double-modal" class="overlay hidden">
+      <div class="dm-box">
+        <div class="dm-title">🍺 你这轮输了！</div>
+        <div class="dm-info" id="dm-info">当前罚酒基数 1 杯</div>
+        <div class="dm-count" id="dm-count"></div>
+        <button id="btn-double" class="dm-btn hot">
+          <span class="dm-b-main">🔥 翻倍！</span>
+          <span class="dm-b-sub" id="dm-double-sub">下轮罚酒 → 2 杯</span>
+        </button>
+        <button id="btn-safe" class="dm-btn calm">
+          <span class="dm-b-main">🛡️ 稳一手</span>
+          <span class="dm-b-sub" id="dm-safe-sub">保持 1 杯</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 终局结算 -->
+    <div id="final-modal" class="overlay hidden">
+      <div class="fm-box">
+        <div class="fm-title">🏆 终局结算</div>
+        <div class="fm-sub" id="fm-sub">酒王加冕</div>
+        <div id="final-rows"></div>
+        <button id="btn-again" class="hidden">🍻 再来一局</button>
+        <button id="btn-leave-final" class="hidden">返回大厅</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 吐司 / 错误角标 / 调试 HUD -->
+  <div id="toast-wrap"></div>
+  <div id="err-badge"></div>
+  <div id="dbg"></div>
+
+<script src="online.js"></script>
+</body>
+</html>

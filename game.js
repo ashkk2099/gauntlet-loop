@@ -1,5 +1,5 @@
 /* ============================================================
-   四轮酒局 · 酒王争霸
+   纸牌屋 · 酒王争霸
    单文件、无依赖、无 ES Modules，file:// 直接运行。
    所有随机性均通过 mulberry32 种子流（?seed=<int> 可复现）。
    ============================================================ */
@@ -1495,7 +1495,7 @@ function softReset() {
   G.base = CONFIG.baseDrinks;
   updateRoundBadge(true);
   updateBaseBadge(false);
-  setHint('欢迎来到四轮酒局');
+  setHint('欢迎来到纸牌屋');
   $('confirm-btn').disabled = true;
   $('menu').classList.remove('hidden');
   if (!Clock.running) Clock.start();

@@ -1,0 +1,13 @@
+# Render 免费托管蓝图：纸牌屋联机房间服务器
+# 部署时用浏览器打开 render.com → New → Blueprint → 选 ashkk2099/gauntlet-loop 仓库即可
+services:
+  - type: web
+    name: siju-room-server
+    runtime: python
+    plan: free
+    buildCommand: pip install -r server/requirements.txt
+    startCommand: python server/room_server.py
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHONIOENCODING
+        value: utf-8

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; }
+  body {
+    background:
+      radial-gradient(circle at 50% 38%, #1a4a30 0%, #10301f 52%, #081a10 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-family:Georgia, serif; position:relative; overflow:hidden;
+  }
+  /* 金环 */
+  .ring {
+    position:absolute; inset:4.5%; border-radius:22%;
+    border:solid rgba(212,175,55,.9) 1.6vmin;
+    box-shadow:0 0 6vmin rgba(240,199,94,.35), inset 0 0 6vmin rgba(0,0,0,.45);
+  }
+  .ring::before {
+    content:''; position:absolute; inset:2.2%; border-radius:19%;
+    border:solid rgba(212,175,55,.35) 0.5vmin;
+  }
+  .stage { position:relative; width:70%; height:70%; display:flex; align-items:center; justify-content:center; }
+  body.mask .stage { width:56%; height:56%; }  /* maskable 安全区 */
+  /* 主牌 A♠ */
+  .card {
+    width:62%; aspect-ratio:0.714; background:#f7f3e8; border-radius:2.2vmin;
+    box-shadow:0 3vmin 7vmin rgba(0,0,0,.55), inset 0 0 0 0.7vmin #f7f3e8, inset 0 0 0 1.1vmin #c9a227;
+    position:relative; transform:rotate(-8deg); color:#141c2b;
+  }
+  .card .rk { position:absolute; top:4%; left:7%; font-size:11vmin; font-weight:700; line-height:1; }
+  .card .st { position:absolute; top:24%; left:8%; font-size:7.5vmin; }
+  .card .big { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:26vmin; }
+  /* 副牌 K♥（压在下面） */
+  .card.k {
+    position:absolute; width:52%; background:#f5efdf; transform:rotate(10deg) translate(26%, 6%);
+    color:#8f1d2c; z-index:-1; box-shadow:0 2.5vmin 6vmin rgba(0,0,0,.5), inset 0 0 0 0.7vmin #f5efdf, inset 0 0 0 1.1vmin #c9a227;
+  }
+  .card.k .rk { font-size:9vmin; } .card.k .st { font-size:6vmin; } .card.k .big { font-size:20vmin; }
+  /* 啤酒徽章 */
+  .beer {
+    position:absolute; right:2%; bottom:3%; width:24%; aspect-ratio:1;
+    background:radial-gradient(circle at 35% 30%, #ffd76a, #d4a017 70%);
+    border-radius:50%; border:solid #7a4a12 0.9vmin;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10vmin; box-shadow:0 1.5vmin 4vmin rgba(0,0,0,.5);
+  }
+</style>
+</head>
+<body>
+  <div class="ring"></div>
+  <div class="stage">
+    <div class="card k"><div class="rk">K</div><div class="st">♥</div><div class="big">♥</div></div>
+    <div class="card"><div class="rk">A</div><div class="st">♠</div><div class="big">♠</div></div>
+    <div class="beer">🍺</div>
+  </div>
+  <script>
+    if (location.search.indexOf('mask=1') >= 0) document.body.className = 'mask';
+  </script>
+</body>
+</html>

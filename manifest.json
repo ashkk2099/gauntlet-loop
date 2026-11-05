@@ -1,0 +1,17 @@
+{
+  "name": "纸牌屋 · 酒王争霸",
+  "short_name": "纸牌屋",
+  "description": "四轮罚酒卡牌游戏：比大、比小、十点半、炸金花，输家罚酒，终局加冕酒王。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#06110c",
+  "theme_color": "#06110c",
+  "lang": "zh-CN",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -129,7 +129,10 @@ var Tweens = {
   },
   killObj: function (obj) {
     for (var i = this.list.length - 1; i >= 0; i--) {
-      if (this.list[i].obj === obj) this.list.splice(i, 1);
+      if (this.list[i].obj !== obj) continue;
+      /* 必须 resolve，否则依赖 .then 的编排链会永久悬空 */
+      var tw = this.list.splice(i, 1)[0];
+      try { tw.res(); } catch (e) { }
     }
   }
 };
@@ -420,8 +423,8 @@ function tweenCard(c, to, opt) {
   return animate(c.p, to, opt);
 }
 function destroyCard(c) {
-  Tweens.killObj(c.p);
-  Tweens.killObj(c.off);
+  /* 注意：不要 killObj 这里的补间——孤儿补间会因 applyCard 的空指针防护
+     自然空转完成并 resolve；强行 kill 会让 .then 链悬空，后续布局静默丢失 */
   if (c.el && c.el.parentNode) c.el.parentNode.removeChild(c.el);
   c.el = null;
 }

@@ -165,32 +165,33 @@ function resolvePlays(round, plays) {
 
 /* ==================== AI ==================== */
 var PERS = {
-  jin:     { key: 'jin',     tag: '激进', wWin: 0.72, wPot: 0.28, noise: 0.08, dBase: 0.62, dBehind: 0.30 },
-  jinshen: { key: 'jinshen', tag: '谨慎', wWin: 0.40, wPot: 0.60, noise: 0.05, dBase: 0.16, dBehind: 0.06 },
-  feng:    { key: 'feng',    tag: '疯子', wWin: 0.50, wPot: 0.50, noise: 0.40, dBase: 0.50, dBehind: 0.15 }
+  jin:     { key: 'jin',     tag: '鹰派', wWin: 0.72, wPot: 0.28, noise: 0.08, dBase: 0.62, dBehind: 0.30 },
+  jinshen: { key: 'jinshen', tag: '精算', wWin: 0.40, wPot: 0.60, noise: 0.05, dBase: 0.16, dBehind: 0.06 },
+  feng:    { key: 'feng',    tag: '野马', wWin: 0.50, wPot: 0.50, noise: 0.40, dBase: 0.50, dBehind: 0.15 }
 };
+/* 《纸牌屋》剧中人物 */
 var ROSTER = [
-  { name: '豹哥', emoji: '🐯', pers: 'jin' },
-  { name: '老张', emoji: '🍶', pers: 'jinshen' },
-  { name: '小疯', emoji: '🤪', pers: 'feng' },
-  { name: '狐姐', emoji: '🦊', pers: 'jinshen' },
-  { name: '鲨总', emoji: '🦈', pers: 'jin' }
+  { name: '弗兰克', emoji: '🎩', pers: 'jin' },
+  { name: '克莱尔', emoji: '🥂', pers: 'jinshen' },
+  { name: '彼得',   emoji: '🎲', pers: 'feng' },
+  { name: '道格',   emoji: '🍸', pers: 'jinshen' },
+  { name: '佐伊',   emoji: '📰', pers: 'jin' }
 ];
 var LINES = {
   win: {
-    jin: ['看到没，这才叫实力！', '跟我斗？喝酒吧！'],
-    jinshen: ['承让承让。', '稳，就是赢。'],
-    feng: ['哈哈哈哈哈！', '爽！再来再来！']
+    jin: ['权力不是靠施舍，是靠夺取。', '我喜欢胜利，就像鲨鱼喜欢血。'],
+    jinshen: ['我从不打无准备之仗。', '冷静，才是一切。'],
+    feng: ['哈哈，运气也是实力！', '看到没！我还能赢！']
   },
   double: {
-    jin: ['怂什么？翻倍！', '玩就玩大的，翻倍！'],
-    jinshen: ['……翻倍。别问为什么。', '赌一把。'],
-    feng: ['翻倍翻倍翻倍！！', '哈哈哈哈翻倍！']
+    jin: ['加码。权力的游戏没有退路。', '要么赢大的，要么别玩。翻倍。'],
+    jinshen: ['……翻倍。我算过了。', '风险评估完毕：翻倍。'],
+    feng: ['翻倍！今晚不醉不归！！', '哈哈哈全押了！']
   },
   safe: {
-    jin: ['呵，先让你们一杯。', '稳住，后面再收割。'],
-    jinshen: ['稳住，别浪。', '保持就好。'],
-    feng: ['切～没意思。', '行吧行吧。']
+    jin: ['退一步，是为了跳得更远。', '耐心，是权力者的美德。'],
+    jinshen: ['时机未到，保持。', '稳住，就是赢。'],
+    feng: ['切～没意思。', '行吧行吧，保持。']
   }
 };
 

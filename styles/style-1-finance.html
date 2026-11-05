@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>风格 1 · 金融精英</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width:1280px; height:800px; overflow:hidden;
+    background:#0d1219; color:#e8e3d5;
+    font-family:'Segoe UI','Microsoft YaHei',sans-serif;
+    position:relative;
+  }
+  /* K 线水印 */
+  .chart { position:absolute; inset:0; opacity:.07; }
+  /* 金色细框 */
+  .frame { position:absolute; inset:18px; border:1px solid rgba(201,162,39,.55); pointer-events:none; }
+  .frame::before { content:''; position:absolute; inset:6px; border:1px solid rgba(201,162,39,.22); }
+  .corner { position:absolute; width:26px; height:26px; border:2px solid #c9a227; }
+  .c1{ top:12px; left:12px; border-right:none; border-bottom:none; }
+  .c2{ top:12px; right:12px; border-left:none; border-bottom:none; }
+  .c3{ bottom:12px; left:12px; border-right:none; border-top:none; }
+  .c4{ bottom:12px; right:12px; border-left:none; border-top:none; }
+
+  .title {
+    position:absolute; top:56px; left:0; right:0; text-align:center;
+    font-family:Georgia,'Songti SC','SimSun',serif;
+    font-size:44px; letter-spacing:18px; color:#e6c25e; text-indent:18px;
+  }
+  .title small {
+    display:block; margin-top:10px; font-size:13px; letter-spacing:6px;
+    color:#8a94a6; font-family:'Segoe UI',sans-serif; text-indent:6px;
+  }
+  .rule { width:340px; height:1px; margin:14px auto 0;
+    background:linear-gradient(90deg,transparent,#c9a227,transparent); }
+
+  .hint {
+    position:absolute; top:168px; left:0; right:0; text-align:center;
+    font-size:15px; letter-spacing:3px; color:#9aa5b8;
+  }
+  .hint b { color:#e6c25e; font-weight:600; }
+
+  .badge {
+    position:absolute; top:52px; right:64px;
+    border:1px solid rgba(201,162,39,.6); padding:10px 18px;
+    font-size:13px; letter-spacing:2px; color:#c9a227; background:rgba(201,162,39,.06);
+  }
+  .badge b { font-family:Georgia,serif; font-size:22px; color:#e6c25e; margin-left:8px; }
+
+  .cards { position:absolute; top:300px; left:0; right:0; display:flex; gap:36px; justify-content:center; align-items:center; }
+  .card {
+    width:150px; height:210px; background:#f7f3e8; border-radius:6px;
+    border:1px solid #b9ad8d; box-shadow:0 14px 34px rgba(0,0,0,.55), inset 0 0 0 4px #f7f3e8, inset 0 0 0 5px #c9a227;
+    position:relative; color:#16213a;
+  }
+  .card .rk { position:absolute; top:10px; left:12px; font-family:Georgia,serif; font-size:34px; font-weight:700; line-height:1; }
+  .card .st { position:absolute; top:48px; left:14px; font-size:24px; }
+  .card .big { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:74px; font-family:Georgia,serif; }
+  .card.red { color:#8f1d2c; }
+  .card.back {
+    background:#101a2e; border:1px solid #c9a227;
+    box-shadow:0 14px 34px rgba(0,0,0,.55), inset 0 0 0 5px #101a2e, inset 0 0 0 6px #c9a227;
+  }
+  .card.back::before {
+    content:''; position:absolute; inset:14px;
+    background:
+      repeating-linear-gradient(45deg, rgba(201,162,39,.35) 0 2px, transparent 2px 10px),
+      repeating-linear-gradient(-45deg, rgba(201,162,39,.35) 0 2px, transparent 2px 10px);
+  }
+  .card.back::after {
+    content:'肆'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:Georgia,'SimSun',serif; font-size:52px; color:#c9a227;
+  }
+
+  .player {
+    position:absolute; left:64px; bottom:64px; display:flex; align-items:center; gap:14px;
+    border-bottom:1px solid rgba(201,162,39,.5); padding-bottom:12px;
+  }
+  .player .av { width:46px; height:46px; border:1px solid #c9a227; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:24px; background:#131c2c; }
+  .player .nm { font-size:17px; letter-spacing:3px; }
+  .player .tag { font-size:11px; color:#8a94a6; letter-spacing:2px; margin-top:3px; }
+  .player .beers { margin-left:14px; font-size:19px; letter-spacing:3px; }
+
+  .btn {
+    position:absolute; right:64px; bottom:60px;
+    background:linear-gradient(180deg,#e6c25e,#c9a227); color:#10151f;
+    border:none; padding:17px 44px; font-size:16px; letter-spacing:8px; text-indent:8px;
+    font-weight:700; cursor:pointer; box-shadow:0 8px 22px rgba(201,162,39,.28);
+    font-family:'Segoe UI','Microsoft YaHei',sans-serif;
+  }
+  .ticker {
+    position:absolute; bottom:64px; left:50%; transform:translateX(-50%);
+    font-family:Georgia,serif; font-size:13px; letter-spacing:2px; color:#5f6b80;
+  }
+  .ticker b { color:#7fb069; }
+</style>
+</head>
+<body>
+  <svg class="chart" width="1280" height="800">
+    <polyline points="0,620 120,560 240,600 360,500 480,540 600,440 720,480 840,380 960,430 1080,340 1280,390"
+      fill="none" stroke="#7fb069" stroke-width="2"/>
+    <polyline points="0,660 120,690 240,640 360,690 480,620 600,660 720,600 840,650 960,590 1080,630 1280,560"
+      fill="none" stroke="#c9a227" stroke-width="1.5"/>
+    <g stroke="#39445c" stroke-width="1">
+      <line x1="0" y1="200" x2="1280" y2="200"/><line x1="0" y1="400" x2="1280" y2="400"/><line x1="0" y1="600" x2="1280" y2="600"/>
+    </g>
+  </svg>
+  <div class="frame"></div>
+  <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+
+  <div class="title">四轮酒局<small>FOUR ROUNDS · 酒 王 争 霸</small></div>
+  <div class="rule"></div>
+  <div class="hint">第 <b>3</b> 轮 · <b>十点半</b>　—　出 2 张凑 10.5，离目标最远者罚酒</div>
+  <div class="badge">罚酒基数<b>×4</b></div>
+
+  <div class="cards">
+    <div class="card"><div class="rk">A</div><div class="st">♠</div><div class="big">♠</div></div>
+    <div class="card red"><div class="rk">K</div><div class="st">♥</div><div class="big">♥</div></div>
+    <div class="card red"><div class="rk">7</div><div class="st">♦</div><div class="big">♦</div></div>
+    <div class="card back"></div>
+  </div>
+
+  <div class="player">
+    <div class="av">🐯</div>
+    <div><div class="nm">豹哥</div><div class="tag">激进型选手</div></div>
+    <div class="beers">🍺🍺🍺</div>
+  </div>
+
+  <div class="ticker">本桌收益率 <b>+12.5%</b> · 流动性充裕 · 风险自担</div>
+  <button class="btn">确认出牌</button>
+</body>
+</html>

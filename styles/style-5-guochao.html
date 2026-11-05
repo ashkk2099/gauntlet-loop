@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>风格 5 · 国潮</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width:1280px; height:800px; overflow:hidden;
+    background:radial-gradient(ellipse at 50% 30%, #2a1512 0%, #1a0f0d 60%, #120a08 100%);
+    color:#f0c75e; font-family:'Kaiti SC','STKaiti','KaiTi','SimSun',serif;
+    position:relative;
+  }
+  /* 祥云纹理 */
+  .clouds { position:absolute; inset:0; opacity:.10; }
+  /* 顶部光晕 */
+  .glow { position:absolute; top:-180px; left:50%; transform:translateX(-50%);
+    width:900px; height:420px; border-radius:50%;
+    background:radial-gradient(ellipse, rgba(212,61,42,.28) 0%, transparent 70%); }
+
+  .frame { position:absolute; inset:22px; border:2px solid rgba(212,160,23,.5); pointer-events:none; }
+  .frame::before { content:''; position:absolute; inset:7px; border:1px solid rgba(212,160,23,.25); }
+
+  .title {
+    position:absolute; top:48px; left:0; right:0; text-align:center;
+    font-size:58px; letter-spacing:22px; text-indent:22px; color:#f0c75e;
+    text-shadow:0 0 26px rgba(240,199,94,.4), 0 2px 0 #7a4a12;
+  }
+  .title small { display:block; font-size:15px; letter-spacing:10px; color:#c98a4b; margin-top:10px; text-indent:10px; }
+  .deco { position:absolute; top:88px; font-size:30px; color:#d43d2a; }
+  .d1 { left:300px; } .d2 { right:300px; }
+
+  .hint {
+    position:absolute; top:168px; left:0; right:0; text-align:center;
+    font-size:17px; letter-spacing:4px; color:#d8b88a;
+  }
+  .hint b { color:#ff6a3d; }
+
+  /* 印章 */
+  .seal {
+    position:absolute; top:52px; right:64px; width:84px; height:84px;
+    background:#d43d2a; border-radius:10px; transform:rotate(-6deg);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 20px rgba(212,61,42,.45), inset 0 0 0 3px rgba(255,220,180,.35);
+  }
+  .seal div { font-size:38px; color:#ffe8c8; writing-mode:vertical-rl; letter-spacing:2px;
+    text-shadow:0 1px 0 rgba(0,0,0,.3); }
+
+  .cards { position:absolute; top:290px; left:0; right:0; display:flex; gap:38px; justify-content:center; align-items:center; }
+  .card {
+    width:150px; height:210px; background:#f5e6c8; border-radius:4px;
+    box-shadow:0 14px 34px rgba(0,0,0,.6), inset 0 0 0 3px #f5e6c8, inset 0 0 0 5px #a6201f, inset 0 0 0 7px #d4a017;
+    position:relative; color:#1f1512;
+  }
+  .card .rk { position:absolute; top:8px; left:11px; font-size:34px; font-weight:700; line-height:1; font-family:Georgia,serif; }
+  .card .st { position:absolute; top:46px; left:13px; font-size:24px; }
+  .card .big { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:74px; }
+  .card.red { color:#a6201f; }
+  .card .mini-seal {
+    position:absolute; right:8px; bottom:8px; width:26px; height:26px;
+    background:#d43d2a; border-radius:4px; font-size:13px; color:#ffe8c8;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .card.back { background:#a6201f; box-shadow:0 14px 34px rgba(0,0,0,.6), inset 0 0 0 4px #a6201f, inset 0 0 0 6px #d4a017; }
+  .card.back::before {
+    content:''; position:absolute; inset:14px; opacity:.5;
+    background-image:
+      radial-gradient(circle at 25% 25%, transparent 8px, rgba(240,199,94,.8) 8px, rgba(240,199,94,.8) 10px, transparent 10px),
+      radial-gradient(circle at 75% 75%, transparent 8px, rgba(240,199,94,.8) 8px, rgba(240,199,94,.8) 10px, transparent 10px);
+    background-size:44px 44px;
+  }
+  .card.back::after {
+    content:'酒'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-size:60px; color:#f0c75e; text-shadow:0 0 18px rgba(240,199,94,.6);
+  }
+
+  .player {
+    position:absolute; left:64px; bottom:62px; display:flex; align-items:center; gap:14px;
+    border:1px solid rgba(212,160,23,.55); background:rgba(38,20,15,.75);
+    padding:12px 26px 12px 12px;
+  }
+  .player .av { width:54px; height:54px; border:2px solid #d4a017; border-radius:50%;
+    background:#2a1512; display:flex; align-items:center; justify-content:center; font-size:28px; }
+  .player .nm { font-size:20px; letter-spacing:4px; color:#f0c75e; }
+  .player .tag { font-size:12px; color:#c98a4b; letter-spacing:2px; }
+  .player .beers { font-size:20px; }
+
+  .btn {
+    position:absolute; right:64px; bottom:58px;
+    background:linear-gradient(180deg,#d43d2a,#a6201f); color:#ffe8c8;
+    border:2px solid #d4a017; padding:17px 48px; font-size:21px; letter-spacing:10px; text-indent:10px;
+    cursor:pointer; box-shadow:0 8px 24px rgba(212,61,42,.4);
+    font-family:'Kaiti SC','STKaiti','KaiTi',serif; font-weight:700;
+  }
+  .couplet { position:absolute; bottom:64px; left:50%; transform:translateX(-50%);
+    font-size:14px; letter-spacing:6px; color:#8a6a4b; }
+</style>
+</head>
+<body>
+  <svg class="clouds" width="1280" height="800">
+    <defs>
+      <pattern id="cld" width="120" height="80" patternUnits="userSpaceOnUse">
+        <path d="M20 50 q10 -18 26 -10 q6 -14 22 -8 q14 4 12 18 q12 2 8 12 q-4 8 -16 6 l-46 0 q-12 -4 -6 -18z"
+          fill="none" stroke="#f0c75e" stroke-width="1.6"/>
+      </pattern>
+    </defs>
+    <rect width="1280" height="800" fill="url(#cld)"/>
+  </svg>
+  <div class="glow"></div>
+  <div class="frame"></div>
+
+  <div class="deco d1">❖</div>
+  <div class="title">四轮酒局<small>觥 筹 交 错 · 酒 王 争 霸</small></div>
+  <div class="deco d2">❖</div>
+  <div class="hint">第 <b>三</b> 轮 · <b>十点半</b>　—　出 2 张凑 10.5，离目标最远者罚酒</div>
+  <div class="seal"><div>罚酒×4</div></div>
+
+  <div class="cards">
+    <div class="card"><div class="rk">A</div><div class="st">♠</div><div class="big">♠</div><div class="mini-seal">甲</div></div>
+    <div class="card red"><div class="rk">K</div><div class="st">♥</div><div class="big">♥</div><div class="mini-seal">魁</div></div>
+    <div class="card red"><div class="rk">7</div><div class="st">♦</div><div class="big">♦</div><div class="mini-seal">柒</div></div>
+    <div class="card back"></div>
+  </div>
+
+  <div class="player">
+    <div class="av">🐯</div>
+    <div><div class="nm">豹哥</div><div class="tag">激进型选手</div></div>
+    <div class="beers">🍺🍺🍺</div>
+  </div>
+
+  <div class="couplet">花 间 一 壶 酒 · 独 酌 无 相 亲</div>
+  <button class="btn">出牌</button>
+</body>
+</html>

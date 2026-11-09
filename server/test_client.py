@@ -167,7 +167,7 @@ async def e2e():
             if loser == c1.pid:
                 await c1.send({'a': 'double', 'yes': rd == 1})  # 第1轮试翻倍，其余保持
             elif loser == c2.pid:
-                await c2.send({'a': 'double', 'yes': False})
+                await c2.send({'a': 'double', 'yes': rd == 1})  # 谁输谁试翻倍，断言才不靠运气
             dres = await c1.wait_msg('doubleResult')
             await c2.wait_msg('doubleResult')
             if loser in (c1.pid, c2.pid) and rd == 1:

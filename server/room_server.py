@@ -41,7 +41,7 @@ CONFIG = {
     "handSize": 7,
     "targetPoint": 10.5,
     "maxPlayers": 6,
-    "playTimeout": 90,        # 出牌超时（秒），超时 AI 代打
+    "playTimeout": None,      # 出牌不设时限：一直等到玩家自己出牌（掉线才 AI 托管）；设秒数可恢复超时 AI 代打
     "doubleTimeout": 20,      # 翻倍抉择超时，默认保持
     "revealMs": 4.2,          # 亮牌结算后停顿（客户端播动画）
     "aiDoubleMs": 2.2,        # AI 翻倍抉择停顿
@@ -436,11 +436,16 @@ async def run_game(room):
 
             if room.play_events:
                 waiters = [ev.wait() for ev in room.play_events.values()]
-                try:
-                    await asyncio.wait_for(
-                        asyncio.gather(*waiters), timeout=CONFIG['playTimeout'])
-                except asyncio.TimeoutError:
-                    pass
+                if CONFIG['playTimeout']:
+                    try:
+                        await asyncio.wait_for(
+                            asyncio.gather(*waiters), timeout=CONFIG['playTimeout'])
+                    except asyncio.TimeoutError:
+                        pass
+                else:
+                    # 无时限：一直等到所有在线玩家出牌
+                    # （掉线者由 leave_room 解除阻塞并 AI 托管，房间不会卡死）
+                    await asyncio.gather(*waiters)
                 for pid, ev in room.play_events.items():
                     p = room.find(pid)
                     if p is None or p.played:
